@@ -1,4 +1,4 @@
-from data_structures.node import Node
+from data_structures.linked_list import Node
 from data_structures.linked_list import LinkedList
 from data_structures.stack import Stack
 from data_structures.queue import Queue
@@ -10,8 +10,13 @@ from data_structures.binary_search_tree import BinarySearchTree
 # input_linked_list (7)->(2)->(13)->(9)->(3)
 def iterate_linkedlist_iteratively(input_linked_list):
     # code here, change return the largest value
-    return 0
-
+    largest = input_linked_list.head.value
+    current = input_linked_list.head
+    while current:
+        if current.value > largest:
+            largest = current.value
+        current = current.next
+    return largest
 
 # ##################### NEW #####################################
 # Write a test to cover this
@@ -19,17 +24,33 @@ def iterate_linkedlist_iteratively(input_linked_list):
 # input_linked_list (7)->(2)->(13)->(9)->(3)
 def iterate_linkedlist_iteratively_small(input_linked_list):
     # code here, change return the smallest value
-    return 0
+    smallest = input_linked_list.head.value
+    current = input_linked_list.head
+    while current:
+        if current.value < smallest:
+            smallest = current.value
+        current = current.next
+    return smallest
 
 
 # ##################### NEW #####################################
 # Write a test to cover this
 # Iterate through a linked list iteratively and remove duplicate values
 # input_linked_list (7)->(2)->(13)->(2)->(9)->(3)->(9)
+#           dupes = [7, ]
 
 def iterate_linkedlist_iteratively_duplicates(input_linked_list):
     # code here, remove duplicate values
-    return 0
+    return 'not working, still implementing'
+        # current = input_linked_list.head
+        # while current:
+        #     temp = current.next
+        #     while temp:
+        #         print(temp.value)
+        #     current = current.next
+
+                
+
 
 
 # ##################### NEW #####################################
@@ -39,23 +60,38 @@ def iterate_linkedlist_iteratively_duplicates(input_linked_list):
 
 def iterate_linkedlist_furthest_from_zero(input_linked_list):
     # code here, remove duplicate values
-    return 0
+    farthest = 0
+    current = input_linked_list.head
+    while current:
+        if abs(current.value) > farthest: 
+            farthest = current.value
+        current = current.next
+    return farthest
 
 
 # Iterate a linked list recursively and return the largest value
 # input_linked_list (7)->(2)->(13)->(9)->(3)
 def iterate_linkedlist_recursively(input_node, largest=0):
     # code here, change return the largest value
-    return 0
+    if not input_node:
+        return largest
+    elif input_node.value > largest:
+        largest = input_node.value
+    return iterate_linkedlist_recursively(input_node.next, largest)
 
 
 # ##################### NEW #####################################
 # Write a test to cover this
-# Iterate through a linked list recursively and return the largest value
+# Iterate through a linked list recursively and return the smallest value
 # input_linked_list (7)->(2)->(13)->(9)->(3)
-def iterate_linkedlist_recursively_smallest(input_node, largest=0):
+def iterate_linkedlist_recursively_smallest(input_node, smallest):
     # code here, change return the largest value
-    return 0
+    if input_node:
+        if input_node.value < smallest:
+            smallest = input_node.value
+        return iterate_linkedlist_recursively_smallest(input_node.next,smallest)
+    return smallest
+    
 
 
 # Iterate a stack iteratively and return the largest value
@@ -160,7 +196,11 @@ def run_tests():
     # Linked List Tests
     input_linked_list = make_linked_list()
     print("LinkedList Iteratively: {}".format(iterate_linkedlist_iteratively(input_linked_list)))
+    print("LinkedList Iteratively Small: {}".format(iterate_linkedlist_iteratively_small(input_linked_list)))
+    print("LinkedList Recursively Small: {}".format(iterate_linkedlist_recursively_smallest(input_linked_list.head, input_linked_list.head.value)))
+    print("LinkedList Iteratively dupes: {}".format(iterate_linkedlist_iteratively_duplicates(input_linked_list)))
     print("LinkedList Recursively: {}".format(iterate_linkedlist_recursively(input_linked_list.head)))
+    print("LinkedList furthest from zero: {}".format(iterate_linkedlist_furthest_from_zero(input_linked_list)))
 
     # Stack Tests
     input_stack = make_stack()
@@ -251,3 +291,12 @@ def make_binary_search_tree():
 
 
 run_tests()
+
+if __name__ == '__main__':
+    pass
+    # linked_list = make_linked_list()
+    # print(iterate_linkedlist_furthest_from_zero(linked_list))
+
+    # iterate_linkedlist_iteratively_duplicates(linked_list)
+
+
